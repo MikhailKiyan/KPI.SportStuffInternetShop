@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KPI.SportStuffInternetShop.Domains {
 
-    public class Product {
-        public int Id { get; set; }
-
+    public class Product : BaseEntity<Guid> {
         public string Name { get; set; }
     }
 }

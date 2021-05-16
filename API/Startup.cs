@@ -1,6 +1,8 @@
 using KPI.SportStuffInternetShop.BusinessServices;
 using KPI.SportStuffInternetShop.Contracts.Services;
 using KPI.SportStuffInternetShop.Data;
+using KPI.SportStuffInternetShop.Services.Contracts;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +39,7 @@ namespace KPI.SportStuffInternetShop.API {
             );
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IGenericRepository<Domains.Product, Guid>, GenericRepository<Domains.Product, Guid>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

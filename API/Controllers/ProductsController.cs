@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KPI.SportStuffInternetShop.Contracts.Services;
@@ -20,7 +21,7 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetProduct(
-                [FromRoute] int id,
+                [FromRoute] Guid id,
                 CancellationToken token) {
             var result = await this.service.GetProductById(id, token);
             return result != null ? this.Ok(result) : this.NotFound();
