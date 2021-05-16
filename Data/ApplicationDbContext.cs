@@ -15,10 +15,10 @@ namespace KPI.SportStuffInternetShop.Data {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        //public DbSet<Domains.Product> Products { get; set; }
+        public DbSet<Domains.Product> Products { get; set; }
 
-        //public DbSet<Domains.ProductBrand> ProductBrands { get; set; }
+        public DbSet<Domains.ProductBrand> ProductBrands { get; set; }
 
-        //public DbSet<Domains.ProductType> ProductTypes { get; set; }
+        public DbSet<Domains.ProductType> ProductTypes { get; set; }
     }
 }
