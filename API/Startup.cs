@@ -35,6 +35,7 @@ namespace KPI.SportStuffInternetShop.API {
                 x.UseSqlServer(
                     this.Configuration.GetConnectionString("MainDb"),
                     b => b.MigrationsAssembly("KPI.SportStuffInternetShop.Data")
+                          .MigrationsHistoryTable("MigrationsHistory", "EF")
                 )
             );
             services.AddScoped<DbContext, ApplicationDbContext>();
