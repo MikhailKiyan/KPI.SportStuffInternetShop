@@ -41,6 +41,8 @@ namespace KPI.SportStuffInternetShop.API {
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IGenericRepository<Domains.Product, Guid>, GenericRepository<Domains.Product, Guid>>();
+            services.AddScoped<IGenericRepository<Domains.ProductBrand, Guid>, GenericRepository<Domains.ProductBrand, Guid>>();
+            services.AddScoped<IGenericRepository<Domains.ProductType, Guid>, GenericRepository<Domains.ProductType, Guid>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

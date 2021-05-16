@@ -15,16 +15,27 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetProducts(CancellationToken token) {
-            return this.Ok(await this.service.GetProducts(token));
+        public async Task<ActionResult> GetProductsAsync(CancellationToken ct) {
+            return this.Ok(await this.service.GetProductsAsync(ct));
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetProduct(
+        public async Task<ActionResult> GetProductAsync(
                 [FromRoute] Guid id,
-                CancellationToken token) {
-            var result = await this.service.GetProductById(id, token);
+                CancellationToken ct) {
+            var result = await this.service.GetProductByIdAsync(id, ct);
             return result != null ? this.Ok(result) : this.NotFound();
         }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult> GetProductBrandsAsync(CancellationToken ct) {
+            return this.Ok(await this.service.GetProductBrandsAsync(ct));
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult> GetProductTypesAsync(CancellationToken ct) {
+            return this.Ok(await this.service.GetProductTypesAsync(ct));
+        }
+
     }
 }

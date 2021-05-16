@@ -7,8 +7,12 @@ using KPI.SportStuffInternetShop.Domains;
 namespace KPI.SportStuffInternetShop.Contracts.Services
 {
     public interface IProductService {
-        Task<IEnumerable<Product>> GetProducts(CancellationToken token = default);
+        Task<IEnumerable<Product>> GetProductsAsync(CancellationToken token = default);
 
-        ValueTask<Product> GetProductById(Guid id, CancellationToken token = default);
+        ValueTask<Product> GetProductByIdAsync(Guid id, CancellationToken token = default);
+        
+        Task<IEnumerable<ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default);
+        
+        Task<IEnumerable<ProductType>> GetProductTypesAsync(CancellationToken ct = default);
     }
 }
