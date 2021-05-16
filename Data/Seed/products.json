@@ -1,0 +1,92 @@
+[
+  {
+    "Id": "0A8116A9-3ED1-46CD-A2A3-1EFDDA6395BC",
+    "Name": "Product #1",
+    "Description": "Product #1 description",
+    "Price": 145.58,
+    "PictureUrl": "image/product01.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "89529EED-698E-47E1-AFBF-C48AB6B7A2C4"
+  },
+  {
+    "Id": "BE5D4B4B-53AA-4784-A38D-175B34389C03",
+    "Name": "Product #2",
+    "Description": "Product #2 description",
+    "Price": 245.58,
+    "PictureUrl": "image/product02.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "DAB1120A-94C7-4F13-8B76-4E61F36EB5B7"
+  },
+  {
+    "Id": "9D56556F-2F51-4EED-9D31-F019B23D4CA5",
+    "Name": "Product #3",
+    "Description": "Product #3 description",
+    "Price": 345.58,
+    "PictureUrl": "image/product03.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "DAB1120A-94C7-4F13-8B76-4E61F36EB5B7"
+  },
+  {
+    "Id": "3339140F-5366-4D14-8B44-88DB963B1D5C",
+    "Name": "Product #4",
+    "Description": "Product #4 description",
+    "Price": 445.58,
+    "PictureUrl": "image/product04.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "DAB1120A-94C7-4F13-8B76-4E61F36EB5B7"
+  },
+  {
+    "Id": "F25D18E4-D7A4-4BD8-A2F1-7335CBA97543",
+    "Name": "Product #5",
+    "Description": "Product #5 description",
+    "Price": 545.58,
+    "PictureUrl": "image/product05.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "28120C8F-8B02-4AEB-AD96-F908E30097FF"
+  },
+  {
+    "Id": "1E59222E-8453-4F8A-983A-EB328CB9AA45",
+    "Name": "Product #6",
+    "Description": "Product #6 description",
+    "Price": 645.58,
+    "PictureUrl": "image/product01.jpg",
+    "ProductTypeId": "6D491076-904E-4456-880B-6B91CF9B36A2",
+    "ProductBrandId": "89529EED-698E-47E1-AFBF-C48AB6B7A2C4"
+  },
+  {
+    "Id": "9B777DD1-5776-4941-ACC2-224F8CABEE8C",
+    "Name": "Product #7",
+    "Description": "Product #7 description",
+    "Price": 745.58,
+    "PictureUrl": "image/product07.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "28120C8F-8B02-4AEB-AD96-F908E30097FF"
+  },
+  {
+    "Id": "850D518D-1F1C-4D73-9003-15FCE96FC9A8",
+    "Name": "Product #8",
+    "Description": "Product #8 description",
+    "Price": 845.58,
+    "PictureUrl": "image/product08.jpg",
+    "ProductTypeId": "6D491076-904E-4456-880B-6B91CF9B36A2",
+    "ProductBrandId": "28120C8F-8B02-4AEB-AD96-F908E30097FF"
+  },
+  {
+    "Id": "EF7D950D-C64E-4CBD-A30C-A14899B29063",
+    "Name": "Product #9",
+    "Description": "Product #9 description",
+    "Price": 945.58,
+    "PictureUrl": "image/product09.jpg",
+    "ProductTypeId": "6D491076-904E-4456-880B-6B91CF9B36A2",
+    "ProductBrandId": "DAB1120A-94C7-4F13-8B76-4E61F36EB5B7"
+  },
+  {
+    "Id": "58FE7995-139F-46F9-8DC9-3608F208D261",
+    "Name": "Product #10",
+    "Description": "Product #10 description",
+    "Price": 1045.58,
+    "PictureUrl": "image/product10.jpg",
+    "ProductTypeId": "FD80505F-CFD5-401A-BE71-64945B72CA18",
+    "ProductBrandId": "89529EED-698E-47E1-AFBF-C48AB6B7A2C4"
+  }
+]

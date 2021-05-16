@@ -1,16 +1,14 @@
-namespace KPI.SportStuffInternetShop.API {
-    using KPI.SportStuffInternetShop.Data;
+using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using KPI.SportStuffInternetShop.Data;
 
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+namespace KPI.SportStuffInternetShop.API {
 
     public class Program
     {
@@ -23,6 +21,7 @@ namespace KPI.SportStuffInternetShop.API {
                 try {
                     var dbContext = services.GetRequiredService<ApplicationDbContext>();
                     await dbContext.Database.MigrateAsync();
+                    await SeedData.SeedAsync(dbContext, loggerFactory);
                 } catch (Exception ex) {
                     var logger = loggerFactory.CreateLogger<Program>();
                     logger.LogError(ex, "An error occurred during migration");
