@@ -4,14 +4,16 @@ using KPI.SportStuffInternetShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KPI.SportStuffInternetShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210516204808_Produc8")]
+    partial class Produc8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -210,12 +212,15 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserToken", "Identity");
                 });
@@ -348,11 +353,15 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserToken", b =>
                 {
-                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });

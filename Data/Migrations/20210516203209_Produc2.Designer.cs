@@ -4,14 +4,16 @@ using KPI.SportStuffInternetShop.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace KPI.SportStuffInternetShop.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210516203209_Produc2")]
+    partial class Produc2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,8 +25,7 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("NEWID()");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -45,7 +46,7 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Role", "Identity");
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.RoleClaim", b =>
@@ -64,11 +65,16 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("RoleId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaim", "Identity");
+                    b.HasIndex("RoleId1");
+
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.User", b =>
@@ -154,11 +160,16 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaim", "Identity");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserClaims");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserLogin", b =>
@@ -175,11 +186,16 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogin", "Identity");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserRole", b =>
@@ -190,13 +206,21 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("RoleId1")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("RoleId1");
 
-                    b.ToTable("UserRole", "Identity");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserToken", b =>
@@ -210,14 +234,17 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId1");
 
-                    b.ToTable("UserToken", "Identity");
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Product", b =>
@@ -296,50 +323,70 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.RoleClaim", b =>
                 {
-                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.Role", "Role")
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.Role", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId1");
 
                     b.Navigation("Role");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserClaim", b =>
                 {
-                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserLogin", b =>
                 {
-                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserRole", b =>
                 {
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RoleId1");
+
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
 
@@ -348,11 +395,15 @@ namespace KPI.SportStuffInternetShop.Data.Migrations
 
             modelBuilder.Entity("KPI.SportStuffInternetShop.Domains.Identity.UserToken", b =>
                 {
-                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("KPI.SportStuffInternetShop.Domains.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });

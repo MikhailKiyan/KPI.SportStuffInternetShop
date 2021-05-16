@@ -8,6 +8,9 @@ namespace KPI.SportStuffInternetShop.Data.Configurations {
             builder.ToTable(nameof(ProductBrand))
                    .HasKey(p => p.Id);
 
+            builder.Property(p => p.Id)
+                   .HasDefaultValueSql("NEWID()");
+
             builder.Property(p => p.Name)
                    .IsRequired()
                    .HasMaxLength(126);
