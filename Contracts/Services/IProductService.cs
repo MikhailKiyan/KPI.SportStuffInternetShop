@@ -9,7 +9,7 @@ namespace KPI.SportStuffInternetShop.Contracts.Services
     public interface IProductService {
         Task<IEnumerable<Product>> GetProductsAsync(CancellationToken token = default);
 
-        ValueTask<Product> GetProductByIdAsync(Guid id, CancellationToken token = default);
+        Task<Product> GetProductByIdAsync(Guid id, CancellationToken token = default);
         
         Task<IEnumerable<ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default);
         

@@ -36,6 +36,5 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         public async Task<ActionResult> GetProductTypesAsync(CancellationToken ct) {
             return this.Ok(await this.service.GetProductTypesAsync(ct));
         }
-
     }
 }

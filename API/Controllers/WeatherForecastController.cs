@@ -1,11 +1,10 @@
-﻿namespace KPI.SportStuffInternetShop.API.Controllers {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Logging;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
+namespace KPI.SportStuffInternetShop.API.Controllers {
 
     [ApiController]
     [Route("[controller]")]
