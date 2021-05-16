@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using KPI.SportStuffInternetShop.Domains.Identity;
-
+/*
 namespace KPI.SportStuffInternetShop.Data.Identities.Configurations {
     public class IdentitiesConfiguration :
             IEntityTypeConfiguration<User>,
@@ -98,3 +98,4 @@ namespace KPI.SportStuffInternetShop.Data.Identities.Configurations {
         }
     }
 }
+*/

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using KPI.SportStuffInternetShop.Domains;
-
+/*
 namespace KPI.SportStuffInternetShop.Data.Configurations {
     public class ProductConfiguration : IEntityTypeConfiguration<Product> {
         public void Configure(EntityTypeBuilder<Product> builder) {
@@ -36,3 +36,4 @@ namespace KPI.SportStuffInternetShop.Data.Configurations {
         }
     }
 }
+*/
