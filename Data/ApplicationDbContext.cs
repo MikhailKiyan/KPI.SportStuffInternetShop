@@ -19,6 +19,6 @@ namespace KPI.SportStuffInternetShop.Data {
 
         public DbSet<Domains.ProductBrand> ProductBrands { get; set; }
 
-        public DbSet<Domains.ProductType> ProductTypess { get; set; }
+        public DbSet<Domains.ProductType> ProductTypes { get; set; }
     }
 }

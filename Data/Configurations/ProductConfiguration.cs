@@ -5,7 +5,8 @@ using KPI.SportStuffInternetShop.Domains;
 namespace KPI.SportStuffInternetShop.Data.Configurations {
     public class ProductConfiguration : IEntityTypeConfiguration<Product> {
         public void Configure(EntityTypeBuilder<Product> builder) {
-            builder.HasKey(p => p.Id);
+            builder.ToTable(nameof(Product))
+                   .HasKey(p => p.Id);
                   
             builder.Property(p => p.Name)
                    .IsRequired()

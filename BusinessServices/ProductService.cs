@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using KPI.SportStuffInternetShop.Contracts.Services;
-using KPI.SportStuffInternetShop.Data;
 using KPI.SportStuffInternetShop.Domains;
 using KPI.SportStuffInternetShop.Services.Contracts;
-
-using Microsoft.EntityFrameworkCore;
 
 namespace KPI.SportStuffInternetShop.BusinessServices {
     public class ProductService : IProductService {
