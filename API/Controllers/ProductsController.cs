@@ -5,9 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using KPI.SportStuffInternetShop.Contracts.Services;
 
 namespace KPI.SportStuffInternetShop.API.Controllers {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ProductsController : ControllerBase {
+    public class ProductsController : BaseApiController {
         private readonly IProductService service;
 
         public ProductsController(IProductService service) {

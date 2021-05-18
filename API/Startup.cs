@@ -17,13 +17,13 @@ using KPI.SportStuffInternetShop.Contracts.Services;
 using KPI.SportStuffInternetShop.Data;
 using KPI.SportStuffInternetShop.Services.Contracts;
 using KPI.SportStuffInternetShop.BusinessServices.MappingProfiles;
+using KPI.SportStuffInternetShop.API.Middleware;
+using KPI.SportStuffInternetShop.API.ErrorResponseModels;
 
 namespace KPI.SportStuffInternetShop.API {
 
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
+    public class Startup {
+        public Startup(IConfiguration configuration) {
             this.Configuration = configuration;
         }
 
@@ -37,22 +37,32 @@ namespace KPI.SportStuffInternetShop.API {
                 x.UseSqlServer(
                     this.Configuration.GetConnectionString("MainDb"),
                     b => b.MigrationsAssembly("KPI.SportStuffInternetShop.Data")
-                          .MigrationsHistoryTable("MigrationsHistory", "EF")
-                )
-            );
+                          .MigrationsHistoryTable("MigrationsHistory", "EF")));
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.Configure<ApiBehaviorOptions>(options => {
+                options.InvalidModelStateResponseFactory = actionContext => {
+                    var errors = actionContext.ModelState
+                        .Where(e => e.Value.Errors.Count > 0)
+                        .SelectMany(x => x.Value.Errors)
+                        .Select(x => x.ErrorMessage)
+                        .ToArray();
+                    var errorResponse = new ApiValidationError {
+                        Errors = errors
+                    };
+                    return new BadRequestObjectResult(errorResponse);
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
                 IApplicationBuilder app,
                 IWebHostEnvironment env) {
-            if (env.IsDevelopment()) {
-                app.UseDeveloperExceptionPage();
-            }
 
+            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseStaticFiles();
