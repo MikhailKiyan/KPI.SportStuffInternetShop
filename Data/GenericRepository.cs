@@ -17,7 +17,7 @@ namespace KPI.SportStuffInternetShop.Data {
             this.dbSet = db.Set<TEntity>();
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllEntiotiesAsync(CancellationToken ct) {
+        public async Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken ct) {
             return await this.dbSet.AsNoTracking().ToListAsync(ct);
         }
 
@@ -29,22 +29,24 @@ namespace KPI.SportStuffInternetShop.Data {
             return this.dbSet.FindAsync(keys, cancellationToken: ct);
         }
 
-        public async Task<IEnumerable<TEntity>> GetEntitiesWithSpecificationAsync(
+        public async Task<IReadOnlyList<TEntity>> GetEntitiesWithSpecificationAsync(
                 ISpecification<TEntity> spec,
                 CancellationToken ct = default) {
 
-            return await this.ApplySpecification(spec).ToListAsync(ct);
+            return await ApplySpecification(dbSet.AsNoTracking(), spec).ToListAsync(ct);
         }
 
         public Task<TEntity> GetEntityWithSpecificationAsync(
                 ISpecification<TEntity> spec,
                 CancellationToken ct = default) {
 
-            return this.ApplySpecification(spec).SingleOrDefaultAsync(ct);
+            return ApplySpecification(dbSet.AsNoTracking(), spec).SingleOrDefaultAsync(ct);
         }
 
-        IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec) {
-            return SpecificationEvaluator<TEntity>.GetQuery(dbSet.AsQueryable(), spec);
+        static IQueryable<TEntity> ApplySpecification(
+                IQueryable<TEntity> sourceQuery,
+                ISpecification<TEntity> spec) {
+            return SpecificationEvaluator<TEntity>.GetQuery(sourceQuery, spec);
         }
     }
 }

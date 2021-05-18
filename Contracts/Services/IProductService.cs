@@ -2,17 +2,16 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using KPI.SportStuffInternetShop.Domains;
+using Model = KPI.SportStuffInternetShop.Models.ResponseModels;
 
-namespace KPI.SportStuffInternetShop.Contracts.Services
-{
+namespace KPI.SportStuffInternetShop.Contracts.Services {
     public interface IProductService {
-        Task<IEnumerable<Product>> GetProductsAsync(CancellationToken token = default);
+        Task<IReadOnlyList<Model.Product>> GetProductsAsync(CancellationToken token = default);
 
-        Task<Product> GetProductByIdAsync(Guid id, CancellationToken token = default);
+        Task<Model.Product> GetProductByIdAsync(Guid id, CancellationToken token = default);
         
-        Task<IEnumerable<ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default);
+        Task<IReadOnlyList<Model.ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default);
         
-        Task<IEnumerable<ProductType>> GetProductTypesAsync(CancellationToken ct = default);
+        Task<IReadOnlyList<Model.ProductType>> GetProductTypesAsync(CancellationToken ct = default);
     }
 }
