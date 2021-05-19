@@ -17,13 +17,13 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Product>) StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
         public async Task<ActionResult> GetProductsAsync(CancellationToken ct) {
             return this.Ok(await this.service.GetProductsAsync(ct));
         }
 
         [HttpGet("{id}")]
-        [ProducesResponseType(typeof(Product) StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> GetProductAsync(
                 [FromRoute] Guid id,
@@ -33,13 +33,13 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         }
 
         [HttpGet("brands")]
-        [ProducesResponseType(typeof(IEnumerable<ProductBrand>) StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductBrand>), StatusCodes.Status200OK)]
         public async Task<ActionResult> GetProductBrandsAsync(CancellationToken ct) {
             return this.Ok(await this.service.GetProductBrandsAsync(ct));
         }
 
         [HttpGet("types")]
-        [ProducesResponseType(typeof(IEnumerable<ProductType>) StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(IEnumerable<ProductType>), StatusCodes.Status200OK)]
         public async Task<ActionResult> GetProductTypesAsync(CancellationToken ct) {
             return this.Ok(await this.service.GetProductTypesAsync(ct));
         }
