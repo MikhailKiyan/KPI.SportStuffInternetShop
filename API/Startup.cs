@@ -19,6 +19,7 @@ using KPI.SportStuffInternetShop.Services.Contracts;
 using KPI.SportStuffInternetShop.BusinessServices.MappingProfiles;
 using KPI.SportStuffInternetShop.API.Middleware;
 using KPI.SportStuffInternetShop.API.ErrorResponseModels;
+using Microsoft.OpenApi.Models;
 
 namespace KPI.SportStuffInternetShop.API {
 
@@ -54,6 +55,12 @@ namespace KPI.SportStuffInternetShop.API {
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
+            services.AddSwaggerGen(o => {
+                o.SwaggerDoc("v1", new OpenApiInfo {
+                    Title = "Sport Stuff Internet Shop",
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +74,10 @@ namespace KPI.SportStuffInternetShop.API {
             app.UseRouting();
             app.UseStaticFiles();
             app.UseAuthorization();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Sport Stuff Internet Shop v1");
+            });
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });

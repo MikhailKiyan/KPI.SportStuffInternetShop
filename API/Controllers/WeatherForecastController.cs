@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace KPI.SportStuffInternetShop.API.Controllers {
+    [ApiController]
+    [Route("[controller]")]
     public class WeatherForecastController : BaseApiController {
         private static readonly string[] Summaries = new[]
         {
