@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using KPI.SportStuffInternetShop.Contracts.Services;
 using KPI.SportStuffInternetShop.Data.Specifications;
 using KPI.SportStuffInternetShop.Services.Contracts;
-using Model = KPI.SportStuffInternetShop.Models.ResponseModels;
 using Domain = KPI.SportStuffInternetShop.Domains;
+using RequestModel = KPI.SportStuffInternetShop.Models.RequestModels;
+using ResponseModel = KPI.SportStuffInternetShop.Models.ResponseModels;
 
 namespace KPI.SportStuffInternetShop.BusinessServices {
     public class ProductService : IProductService {
@@ -29,26 +29,32 @@ namespace KPI.SportStuffInternetShop.BusinessServices {
             this.mapper = mapper;
         }
 
-        public async Task<Model.Product> GetProductByIdAsync(Guid id, CancellationToken ct = default) {
+        public async Task<ResponseModel.Product> GetProductByIdAsync(Guid id, CancellationToken ct = default) {
             var spec = new ProductsWithTypesAndBrandsSpecification(id);
             var result = await this.productRepository.GetEntityWithSpecificationAsync(spec, ct);
-            return this.mapper.Map<Model.Product>(result);
+            return this.mapper.Map<ResponseModel.Product>(result);
         }
 
-        public async Task<IReadOnlyList<Model.Product>> GetProductsAsync(CancellationToken ct = default) {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
-            var result = await this.productRepository.GetEntitiesWithSpecificationAsync(spec, ct);
-            return this.mapper.Map<IReadOnlyList<Model.Product>>(result);
+        public async Task<ResponseModel.Pagination<ResponseModel.Product>> GetProductsAsync(
+                RequestModel.ProductCpecificationParams productParams,
+                CancellationToken ct = default) {
+            var productSpec = new ProductsWithTypesAndBrandsSpecification(productParams);
+            var countSpec = new ProductWithFilterForCountSpecification(productParams);
+            var products = await this.productRepository.GetEntitiesWithSpecificationAsync(productSpec, ct);
+            var totalItems = await this.productRepository.CountAsync(countSpec, ct);
+            var data = this.mapper.Map<IReadOnlyList<ResponseModel.Product>>(products);
+            return new ResponseModel.Pagination<ResponseModel.Product>(productParams.PageIndex, productParams.PageSize,
+                totalItems, data);
         }
 
-        public async Task<IReadOnlyList<Model.ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default) {
+        public async Task<IReadOnlyList<ResponseModel.ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default) {
             var result = await this.brandRepository.GetAllEntitiesAsync(ct);
-            return this.mapper.Map<IReadOnlyList<Model.ProductBrand>>(result);
+            return this.mapper.Map<IReadOnlyList<ResponseModel.ProductBrand>>(result);
         }
 
-        public async Task<IReadOnlyList<Model.ProductType>> GetProductTypesAsync(CancellationToken ct = default) {
+        public async Task<IReadOnlyList<ResponseModel.ProductType>> GetProductTypesAsync(CancellationToken ct = default) {
             var result = await this.typeRepository.GetAllEntitiesAsync(ct);
-            return this.mapper.Map<IReadOnlyList<Model.ProductType>>(result);
+            return this.mapper.Map<IReadOnlyList<ResponseModel.ProductType>>(result);
         }
     }
 }

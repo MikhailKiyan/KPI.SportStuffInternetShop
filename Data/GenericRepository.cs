@@ -43,6 +43,12 @@ namespace KPI.SportStuffInternetShop.Data {
             return ApplySpecification(dbSet.AsNoTracking(), spec).SingleOrDefaultAsync(ct);
         }
 
+        public Task<int> CountAsync(
+                ISpecification<TEntity> spec,
+                CancellationToken ct) {
+            return ApplySpecification(dbSet.AsNoTracking(), spec).CountAsync(ct);
+        }
+
         static IQueryable<TEntity> ApplySpecification(
                 IQueryable<TEntity> sourceQuery,
                 ISpecification<TEntity> spec) {

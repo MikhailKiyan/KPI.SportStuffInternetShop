@@ -7,6 +7,7 @@ using KPI.SportStuffInternetShop.Contracts.Services;
 using KPI.SportStuffInternetShop.API.ErrorResponseModels;
 using KPI.SportStuffInternetShop.Models.ResponseModels;
 using System.Collections.Generic;
+using RequestModel = KPI.SportStuffInternetShop.Models.RequestModels;
 
 namespace KPI.SportStuffInternetShop.API.Controllers {
     public class ProductsController : BaseApiController {
@@ -18,8 +19,10 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
-        public async Task<ActionResult> GetProductsAsync(CancellationToken ct) {
-            return this.Ok(await this.service.GetProductsAsync(ct));
+        public async Task<ActionResult> GetProductsAsync(
+                [FromQuery] RequestModel.ProductCpecificationParams productParams,
+                CancellationToken ct) {
+            return this.Ok(await this.service.GetProductsAsync(productParams, ct));
         }
 
         [HttpGet("{id}")]

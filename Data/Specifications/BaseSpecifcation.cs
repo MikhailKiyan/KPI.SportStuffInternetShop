@@ -25,19 +25,24 @@ namespace KPI.SportStuffInternetShop.Data.Specifications {
 
         public bool IsPagingEnabled { get; private set; }
 
-        protected void AddInclude(Expression<Func<TEntity, object>> includeExpression) {
+        protected void AddInclude(
+                Expression<Func<TEntity, object>> includeExpression) {
             this.Includes.Add(includeExpression);
         }
 
-        protected void AddOrderBy(Expression<Func<TEntity, object>> orderByExpression) {
+        protected void AddOrderBy(
+                Expression<Func<TEntity, object>> orderByExpression) {
             this.OrderBy = orderByExpression;
         }
 
-        protected void AddOrderByDescending(Expression<Func<TEntity, object>> orderByDescExpression) {
+        protected void AddOrderByDescending(
+                Expression<Func<TEntity, object>> orderByDescExpression) {
             this.OrderByDescending = orderByDescExpression;
         }
 
-        protected void ApplyPaging(int skip, int take) {
+        protected void ApplyPaging(
+                int skip,
+                int take) {
             this.Skip = skip;
             this.Take = take;
             this.IsPagingEnabled = true;
