@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
     this.http.get('https://localhost:5001/api/products?pageSize=50')
       .subscribe(
         (response: any) => this.products = response.data,
-        (error: any) => console.error(error)
-      );
+        (error: any) => console.error(error));
   }
 }
