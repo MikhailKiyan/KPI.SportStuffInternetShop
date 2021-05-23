@@ -18,7 +18,7 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Pagination<Product>), StatusCodes.Status200OK)]
         public async Task<ActionResult> GetProductsAsync(
                 [FromQuery] RequestModel.ProductCpecificationParams productParams,
                 CancellationToken ct) {
