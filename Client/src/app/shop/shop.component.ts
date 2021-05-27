@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IProduct } from '../shared/models/product';
 import { IProductBrand } from '../shared/models/productBrand';
 import { IProductType } from '../shared/models/productType';
@@ -10,7 +10,7 @@ import { ShopService } from './shop.service';
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit, OnDestroy {
   @ViewChild('search', {static: true}) searchTerm: ElementRef | null = null;
   products: IProduct[] = [];
   brands: IProductBrand[] = [];
@@ -31,6 +31,10 @@ export class ShopComponent implements OnInit {
     this.getProducts();
   }
 
+  ngOnDestroy(): void {
+
+  }
+
   getProducts() {
     this.shopService.getProducts(this.shopParams).subscribe(
       response => {
@@ -39,7 +43,8 @@ export class ShopComponent implements OnInit {
         this.shopParams.pageSize = response?.pageSize ?? 6;
         this.totalCount = response?.count ?? 0;
       },
-      error => console.error(error));
+      error => console.error(error)
+    );
   }
 
   getBrands() {
