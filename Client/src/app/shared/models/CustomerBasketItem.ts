@@ -3,7 +3,7 @@ export interface ICustomerBasketItem {
   productName: string;
   price: number;
   quantity: number;
-  pictireUrl: string;
+  pictureUrl: string;
   brand: string;
   type: string;
 }

@@ -11,7 +11,6 @@ export class AppComponent implements OnInit {
 
   constructor(private basketService: BasketService) {
     const basketId = localStorage.getItem('basket_id');
-    console.log(basketId);
     if (basketId)
     {
       this.basketService.getBasket(basketId)

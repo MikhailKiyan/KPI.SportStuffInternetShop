@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { ICustomerBasketItem } from "./CustomerBasketItem";
+import { ICustomerBasketItem } from "./customerBasketItem";
 
 export interface ICustomerBasket {
   id: string;
