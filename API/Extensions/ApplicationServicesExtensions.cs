@@ -7,6 +7,7 @@ using KPI.SportStuffInternetShop.Data;
 using KPI.SportStuffInternetShop.Services.Contracts;
 using KPI.SportStuffInternetShop.BusinessServices;
 using KPI.SportStuffInternetShop.API.ErrorResponseModels;
+using StackExchange.Redis;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ApplicationServicesExtensions {
@@ -22,6 +23,12 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddSingleton<IConnectionMultiplexer>(c => {
+                var config = ConfigurationOptions.Parse(configuration.GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(config);
+            });
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            services.AddScoped<IBasketService, BasketService>();
             services.Configure<ApiBehaviorOptions>(options => {
                 options.InvalidModelStateResponseFactory = actionContext => {
                     var errors = actionContext.ModelState
