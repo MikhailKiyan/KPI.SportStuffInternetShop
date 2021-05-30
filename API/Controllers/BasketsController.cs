@@ -5,7 +5,6 @@ using KPI.SportStuffInternetShop.Contracts.Services;
 using Domain = KPI.SportStuffInternetShop.Domains;
 
 namespace KPI.SportStuffInternetShop.API.Controllers {
-    [Route("/api/baskets")]
     public class BasketsController : BaseApiController {
         private readonly IBasketService service;
 

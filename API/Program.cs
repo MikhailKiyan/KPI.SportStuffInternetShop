@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using KPI.SportStuffInternetShop.Data;
+using Microsoft.AspNetCore.Identity;
+using KPI.SportStuffInternetShop.Domains.Identity;
 
 namespace KPI.SportStuffInternetShop.API {
 
@@ -21,7 +23,8 @@ namespace KPI.SportStuffInternetShop.API {
                 try {
                     var dbContext = services.GetRequiredService<ApplicationDbContext>();
                     await dbContext.Database.MigrateAsync();
-                    await SeedData.SeedAsync(dbContext, loggerFactory);
+                    var userManager = services.GetRequiredService<UserManager<User>>();
+                    await SeedData.SeedAsync(dbContext, userManager, loggerFactory);
                 } catch (Exception ex) {
                     var logger = loggerFactory.CreateLogger<Program>();
                     logger.LogError(ex, "An error occurred during migration");

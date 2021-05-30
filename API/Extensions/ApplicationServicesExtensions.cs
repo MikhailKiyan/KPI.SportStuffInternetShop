@@ -8,6 +8,8 @@ using KPI.SportStuffInternetShop.Services.Contracts;
 using KPI.SportStuffInternetShop.BusinessServices;
 using KPI.SportStuffInternetShop.API.ErrorResponseModels;
 using StackExchange.Redis;
+using KPI.SportStuffInternetShop.Domains.Identity;
+using Microsoft.AspNetCore.Identity;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ApplicationServicesExtensions {
@@ -42,6 +44,13 @@ namespace Microsoft.Extensions.DependencyInjection {
                     return new BadRequestObjectResult(errorResponse);
                 };
             });
+
+            var builder = services.AddIdentityCore<User>();
+            builder = new IdentityBuilder(builder.UserType, builder.Services);
+            builder.AddEntityFrameworkStores<ApplicationDbContext>();
+            builder.AddSignInManager<SignInManager<User>>();
+            services.AddAuthentication();
+
             return services;
         }
     }

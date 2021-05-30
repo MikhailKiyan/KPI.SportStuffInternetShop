@@ -10,13 +10,18 @@ namespace KPI.SportStuffInternetShop.Data.Identities.Configurations {
             IEntityTypeConfiguration<UserRole>,
             IEntityTypeConfiguration<UserLogin>,
             IEntityTypeConfiguration<RoleClaim>,
-            IEntityTypeConfiguration<UserToken> {
+            IEntityTypeConfiguration<UserToken>,
+            IEntityTypeConfiguration<Address> {
 
         const string SCHEMA_NAME = "Identity";
 
         public void Configure(EntityTypeBuilder<User> builder) {
             builder.ToTable(nameof(User), SCHEMA_NAME)
                    .HasKey(p => p.Id);
+
+            builder.HasOne(p => p.Address)
+                   .WithOne(p => p.User)
+                   .HasForeignKey<Address>(p => p.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(p => p.Id)
                    .HasDefaultValueSql("NEWID()");
@@ -95,6 +100,14 @@ namespace KPI.SportStuffInternetShop.Data.Identities.Configurations {
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasIndex(ut => ut.UserId);
+        }
+
+        public void Configure(EntityTypeBuilder<Address> builder) {
+            builder.ToTable(nameof(Address), SCHEMA_NAME)
+                   .HasKey(p => p.Id);
+
+            builder.Property(p => p.Id)
+                   .HasDefaultValueSql("NEWID()");
         }
     }
 }

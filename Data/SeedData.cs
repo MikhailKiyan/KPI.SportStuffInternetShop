@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using KPI.SportStuffInternetShop.Domains;
+using Microsoft.AspNetCore.Identity;
+using KPI.SportStuffInternetShop.Domains.Identity;
 
 namespace KPI.SportStuffInternetShop.Data {
     public class SeedData {
         public static async Task SeedAsync(
                 ApplicationDbContext context,
+                UserManager<User> userManager,
                 ILoggerFactory loggerFactory) {
 
             const string pathPrefix = @"..\Data\Seed\";
@@ -39,6 +42,24 @@ namespace KPI.SportStuffInternetShop.Data {
                     }
                     await context.SaveChangesAsync();
                 }
+
+                if (!userManager.Users.Any()) {
+                    var user = new User {
+                        DisplayName = "Bob",
+                        Email = "test@gmail.com",
+                        UserName = "test@gmail.com",
+                        Address = new Address {
+                            FirstName = "Bob",
+                            LastName = "Bobbity",
+                            Street = "10 the street",
+                            City = "New York",
+                            Oblast = "NY",
+                            Zipcode = "90210"
+                        }
+                    };
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
+
             } catch (Exception ex) {
                 var logger = loggerFactory.CreateLogger<SeedData>();
                 logger.LogError(ex, ex.Message);
