@@ -18,9 +18,9 @@ export class ShopComponent implements OnInit, OnDestroy {
   shopParams = new ShopParams();
   totalCount = 0;
   sortOptions = [
-    { name: 'Alphabetical', value: '' },
-    { name: 'Price: Low to High', value: 'priceAsc' },
-    { name: 'Price: High to Low', value: 'priceDesc' }
+    { name: 'По назві', value: '' },
+    { name: 'Ціна: від дорогих до дешевих', value: 'priceAsc' },
+    { name: 'Ціна: від дешевих до дорогих', value: 'priceDesc' }
   ]
 
   constructor(private shopService: ShopService) { }
@@ -40,7 +40,7 @@ export class ShopComponent implements OnInit, OnDestroy {
       response => {
         this.products = response?.data ?? [];
         this.shopParams.pageNumber = response?.pageIndex ?? 1;
-        this.shopParams.pageSize = response?.pageSize ?? 6;
+        this.shopParams.pageSize = response?.pageSize ?? 9;
         this.totalCount = response?.count ?? 0;
       },
       error => console.error(error)
@@ -49,13 +49,13 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   getBrands() {
     this.shopService.getBrands().subscribe(
-      response => this.brands = [{id: '', name: 'All'}, ...response],
+      response => this.brands = [{id: '', name: 'Всі'}, ...response],
       error => console.error(error));
   }
 
   getTypes() {
     this.shopService.getTypes().subscribe(
-      response => this.types = [{id: '', name: 'All'}, ...response],
+      response => this.types = [{id: '', name: 'Всі'}, ...response],
       error => console.error(error));
   }
 

@@ -1,6 +1,6 @@
 <header>
   <span *ngIf="totalCount">
-    Showing
+    Відображено
     <strong>
       {{(this.pageNumber - 1) * this.pageSize + 1}}
        -
@@ -9,11 +9,11 @@
         : this.pageNumber * this.pageSize
       }}
     </strong>
-     of
+     з
      <strong>{{this.totalCount}}</strong>
-      results
+      одиниць
   </span>
 
-  <span *ngIf="totalCount === 0">There are <strong>0</strong> results for this filter</span>
+  <span *ngIf="totalCount === 0">Немає даних для поточного фільтру</span>
 </header>
 

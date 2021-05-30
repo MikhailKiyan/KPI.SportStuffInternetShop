@@ -7,7 +7,7 @@ import { BasketService } from './basket/basket.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'BID Sport Stuff Internet Shop';
+  title = 'BID Інтернет магазин спортивних речей';
 
   constructor(private basketService: BasketService) {
     const basketId = localStorage.getItem('basket_id');
