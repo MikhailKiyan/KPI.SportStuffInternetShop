@@ -9,6 +9,7 @@ using Model = KPI.SportStuffInternetShop.Models;
 using RequestModel = KPI.SportStuffInternetShop.Models.RequestModels;
 using ResponseModel = KPI.SportStuffInternetShop.Models.ResponseModels;
 using Domain = KPI.SportStuffInternetShop.Domains.Identity;
+using System;
 
 namespace KPI.SportStuffInternetShop.BusinessServices {
     public class AccountService : IAccountService {
@@ -42,13 +43,17 @@ namespace KPI.SportStuffInternetShop.BusinessServices {
         }
 
         public async Task<ResponseModel.Login> RegisterAsync(RequestModel.Register model) {
+            if (await this.CheckEmailExistsAsync(model.Email)) {
+                throw new InvalidOperationException("Такий Email вже використовується");
+            }
+
             var user = new User {
                 DisplayName = model.DisplayName,
                 Email = model.Email,
                 UserName = model.Email
             };
             var result = await this.userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded) return null;
+            if (!result.Succeeded) throw new InvalidOperationException();
             else return new ResponseModel.Login {
                 DisplayName = user.DisplayName,
                 Email = user.Email,

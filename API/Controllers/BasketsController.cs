@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KPI.SportStuffInternetShop.Contracts.Services;
-using Domain = KPI.SportStuffInternetShop.Domains;
+using Model = KPI.SportStuffInternetShop.Models;
 
 namespace KPI.SportStuffInternetShop.API.Controllers {
     public class BasketsController : BaseApiController {
@@ -18,13 +18,13 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateBasketAsync([FromBody] Domain.CustomerBasket customerBasket) {
+        public async Task<ActionResult> UpdateBasketAsync([FromBody] Model.CustomerBasket customerBasket) {
             var updatedBasket = await this.service.UpdateBasketAsync(customerBasket);
             return this.Ok(updatedBasket);
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateBasketAsync([FromBody] Domain.CustomerBasket customerBasket) {
+        public async Task<ActionResult> CreateBasketAsync([FromBody] Model.CustomerBasket customerBasket) {
             var createdBasket = await this.service.CreateBasketAsync(customerBasket);
             return this.Ok(createdBasket);
         }
