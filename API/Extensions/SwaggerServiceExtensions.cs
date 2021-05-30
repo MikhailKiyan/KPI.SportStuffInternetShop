@@ -10,6 +10,22 @@ namespace Microsoft.Extensions.DependencyInjection {
                     Title = "Sport Stuff Internet Shop",
                     Version = "v1"
                 });
+                var securitySchema = new OpenApiSecurityScheme {
+                    Description = "JWT Auth Bearer Scheme",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    Reference = new OpenApiReference {
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
+                    }
+                };
+                o.AddSecurityDefinition("Bearer", securitySchema);
+                var securityRequirement = new OpenApiSecurityRequirement {
+                    { securitySchema, new[] { "Bearer" } }
+                };
+                o.AddSecurityRequirement(securityRequirement);
             });
             return services;
         }
