@@ -10,6 +10,9 @@ using KPI.SportStuffInternetShop.API.ErrorResponseModels;
 using StackExchange.Redis;
 using KPI.SportStuffInternetShop.Domains.Identity;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ApplicationServicesExtensions {
@@ -49,7 +52,21 @@ namespace Microsoft.Extensions.DependencyInjection {
             builder = new IdentityBuilder(builder.UserType, builder.Services);
             builder.AddEntityFrameworkStores<ApplicationDbContext>();
             builder.AddSignInManager<SignInManager<User>>();
-            services.AddAuthentication();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Token:Key"])),
+                        ValidIssuer = configuration["Token:Issuer"],
+                        ValidateIssuer = true,
+                        // ValidAudience = configuration["Token:Audience"],
+                        // ValidateAudience = true
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             return services;
         }

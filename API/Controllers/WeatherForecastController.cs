@@ -6,6 +6,7 @@ using KPI.SportStuffInternetShop.API.ErrorResponseModels;
 using KPI.SportStuffInternetShop.Data;
 using KPI.SportStuffInternetShop.Models.ResponseModels;
 
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -56,6 +57,12 @@ namespace KPI.SportStuffInternetShop.API.Controllers {
         [HttpGet("badrequest/{id}")]
         public ActionResult GetBadRequestResponse([FromRoute] int id) {
             throw new NotImplementedException();
+        }
+
+        [HttpGet("testauth")]
+        [Authorize]
+        public ActionResult GetSecretText() {
+            return Ok("My secret");
         }
     }
 }
