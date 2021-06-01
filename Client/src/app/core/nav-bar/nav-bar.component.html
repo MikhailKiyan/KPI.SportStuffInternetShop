@@ -19,7 +19,37 @@
       <div *ngIf="(basket$ | async) as basket"
            class="cart-no">{{basket.items.length}}</div>
     </a>
-    <a class="btn btn-outline-secondary mr-2">Увійти</a>
-    <a class="btn btn-outline-secondary mr-3">Реєстрація</a>
+
+    <ng-container *ngIf="(currentUser$ | async) === null">
+      <a class="btn btn-outline-secondary mr-2"
+         routerLink="/account/login">Увійти</a>
+      <a class="btn btn-outline-secondary mr-3"
+         routerLink="/account/register">Реєстрація</a>
+      </ng-container>
+
+      <ng-container *ngIf="(currentUser$ | async) as currentUser">
+        <div class="dropdown ml-3 mr-5" dropdown>
+          <a class="dropdown-toggle"
+             style="cursor: pointer;"
+             dropdownToggle><strong>Ласкаво просимо, {{currentUser.displayName}}</strong></a>
+          <div class="dropdown-menu dropdown-menu-right"
+               style="cursor: pointer;"
+               *dropdownMenu>
+            <a class="dropdown-item d-flex align-items-center py-2"
+               routerLink="/basket">
+              <i class="fa fa-shopping-cart mr-3"></i>Переглянути корзину
+            </a>
+            <a class="dropdown-item d-flex align-items-center py-2"
+               routerLink="/orders">
+              <i class="fa fa-history mr-3"></i>Переглянути Замовлення
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item d-flex align-items-center py-2"
+               (click)="logout()">
+              <i class="fa fa-sign-out mr-3"></i>Вийти
+            </a>
+          </div>
+        </div>
+      </ng-container>
     </div>
 </div>

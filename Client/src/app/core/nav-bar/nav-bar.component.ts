@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AccountService } from 'src/app/account/account.service';
 import { BasketService } from 'src/app/basket/basket.service';
 import { ICustomerBasket } from 'src/app/shared/models/customerBasket';
+import { IUser } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-nav-bar',
@@ -9,11 +11,19 @@ import { ICustomerBasket } from 'src/app/shared/models/customerBasket';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
-  basket$: Observable<ICustomerBasket | null>;
+  basket$!: Observable<ICustomerBasket | null>;
+  currentUser$!: Observable<IUser | null>;
 
-  constructor(private basketService: BasketService) {
+  constructor(
+      private basketService: BasketService,
+      private accountService: AccountService) { }
+
+  ngOnInit(): void {
     this.basket$ = this.basketService.basket$;
-  }
+    this.currentUser$ = this.accountService.currentUser$;
+   }
 
-  ngOnInit(): void { }
+   logout() {
+     this.accountService.logout();
+   }
 }
