@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using KPI.SportStuffInternetShop.Domains.Identity;
-using System.Reflection;
+using Domain = KPI.SportStuffInternetShop.Domains;
 
 namespace KPI.SportStuffInternetShop.Data {
 
     public class ApplicationDbContext :
-            IdentityDbContext<User, Role, Guid, UserClaim, UserRole, UserLogin, RoleClaim, UserToken> {
+            IdentityDbContext<Domain.Identity.User, Domain.Identity.Role, Guid, Domain.Identity.UserClaim,
+                Domain.Identity.UserRole, Domain.Identity.UserLogin, Domain.Identity.RoleClaim,
+                Domain.Identity.UserToken> {
         public ApplicationDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) {
@@ -15,10 +17,16 @@ namespace KPI.SportStuffInternetShop.Data {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public DbSet<Domains.Product> Products { get; set; }
+        public DbSet<Domain.Product> Products { get; set; }
 
-        public DbSet<Domains.ProductBrand> ProductBrands { get; set; }
+        public DbSet<Domain.ProductBrand> ProductBrands { get; set; }
 
-        public DbSet<Domains.ProductType> ProductTypes { get; set; }
+        public DbSet<Domain.ProductType> ProductTypes { get; set; }
+
+        public DbSet<Domain.Orders.Order> Orders { get; set; }
+
+        public DbSet<Domain.Orders.OrderItem> OrderItems { get; set; }
+
+        public DbSet<Domain.Orders.DeliveryMethod> DeliveryMethods { get; set; }
     }
 }

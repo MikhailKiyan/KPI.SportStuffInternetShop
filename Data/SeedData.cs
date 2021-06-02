@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using KPI.SportStuffInternetShop.Domains;
 using Microsoft.AspNetCore.Identity;
 using KPI.SportStuffInternetShop.Domains.Identity;
+using KPI.SportStuffInternetShop.Domains.Orders;
 
 namespace KPI.SportStuffInternetShop.Data {
     public class SeedData {
@@ -39,6 +40,14 @@ namespace KPI.SportStuffInternetShop.Data {
                     var products = JsonConvert.DeserializeObject<List<Product>>(await File.ReadAllTextAsync(pathPrefix + "products.json"));
                     foreach (var product in products) {
                         context.Products.Add(product);
+                    }
+                    await context.SaveChangesAsync();
+                }
+
+                if (!context.DeliveryMethods.Any()) {
+                    var deliveryMethods = JsonConvert.DeserializeObject<List<DeliveryMethod>>(await File.ReadAllTextAsync(pathPrefix + "deliveryMethods.json"));
+                    foreach (var deliveryMethod in deliveryMethods) {
+                        context.DeliveryMethods.Add(deliveryMethod);
                     }
                     await context.SaveChangesAsync();
                 }
