@@ -5,43 +5,40 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using KPI.SportStuffInternetShop.Contracts.Services;
+using KPI.SportStuffInternetShop.Data.Specifications;
+using KPI.SportStuffInternetShop.Domains.Orders;
+
 using Domain = KPI.SportStuffInternetShop.Domains;
-using KPI.SportStuffInternetShop.Models;
-using KPI.SportStuffInternetShop.Models.RequestModels;
-using KPI.SportStuffInternetShop.Services.Contracts;
+using Model = KPI.SportStuffInternetShop.Models;
+using RequestModel = KPI.SportStuffInternetShop.Models.RequestModels;
+using ResponseModel = KPI.SportStuffInternetShop.Models.ResponseModels;
 
 namespace KPI.SportStuffInternetShop.BusinessServices {
     public class OrderService : IOrderService {
-        private readonly IGenericRepository<Domain.Orders.Order, Guid> orderRepository;
-        private readonly IGenericRepository<Domain.Orders.DeliveryMethod, Guid> deliveryMethodRepository;
-        private readonly IGenericRepository<Domain.Product, Guid> productRepository;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IBasketRepository basketRepository;
         private readonly IMapper mapper;
 
         public OrderService(
-                IGenericRepository<Domain.Orders.Order, Guid> orderRepository,
-                IGenericRepository<Domain.Orders.DeliveryMethod, Guid> deliveryMethodRepository,
-                IGenericRepository<Domain.Product, Guid> productRepository,
+                IUnitOfWork unitOfWork,
                 IBasketRepository basketRepository,
                 IMapper mapper) {
-
-            this.orderRepository = orderRepository;
-            this.deliveryMethodRepository = deliveryMethodRepository;
-            this.productRepository = productRepository;
+            this.unitOfWork = unitOfWork;
             this.basketRepository = basketRepository;
             this.mapper = mapper;
         }
 
-        public async Task<Domain.Orders.Order> CreateOrderAsync(
+        private async Task<Domain.Orders.Order> CreateOrderAsync(
                 string buyerEmail,
                 Guid deliveryMethodId,
                 Guid basketId,
-                Domain.Orders.OrderAddress shippingAddress) {
+                Model.Address shippingAddress,
+                CancellationToken ct = default) {
 
             var basket = await this.basketRepository.GetBasketAsync(basketId);
             var items = new List<Domain.Orders.OrderItem>();
             foreach (var item in basket.Items) {
-                var productItem = await this.productRepository.FineByKeyAsync(item.Id);
+                var productItem = await this.unitOfWork.Repository<Domain.Product, Guid>().FineByKeyAsync(item.Id);
                 var itemOrder = new Domain.Orders.ProductItemOrdered {
                     Id = productItem.Id,
                     PictureUrl = productItem.PictureUrl,
@@ -54,42 +51,53 @@ namespace KPI.SportStuffInternetShop.BusinessServices {
                 };
                 items.Add(orderItem);
             }
-            var deliveryMethod = await this.deliveryMethodRepository.FineByKeyAsync(deliveryMethodId);
+            var deliveryMethod = await this.unitOfWork.Repository<Domain.Orders.DeliveryMethod, Guid>()
+                .FineByKeyAsync(deliveryMethodId);
             var subtotal = items.Sum(item => item.Price * item.Quantity);
             var order = new Domain.Orders.Order {
                 OrderItems = items,
                 DeliveryMethod = deliveryMethod,
                 BuyerEmail = buyerEmail,
-                ShipAddress = shippingAddress,
+                ShipAddress = this.mapper.Map<Domain.Orders.OrderAddress>(shippingAddress),
                 Subtotal = subtotal
             };
-            // TODO: Save the order to Database
+            this.unitOfWork.Repository<Domain.Orders.Order, Guid>().Add(order);
+            if (await this.unitOfWork.CompleteAsync(ct) <= 0) return null;
+            await this.basketRepository.DeleteBasketAsync(basketId);
             return order;
         }
 
-        public async Task<Domain.Orders.Order> CreateOrderAsync(
-                OrderRequestModel model,
+        public async Task<ResponseModel.Order> CreateOrderAsync(
+                RequestModel.OrderRequestModel model,
                 string userEmail,
                 CancellationToken ct = default) {
-
-            var address = this.mapper.Map<Domain.Orders.OrderAddress>(model.ShipToAddress);
-            // TODO: Change to Response model
-            var orderFromDb = await this.CreateOrderAsync(userEmail, model.DeliveryMethodId, model.BasketId, address);
-            return orderFromDb;
+            var orderFromDb = await this.CreateOrderAsync(userEmail, model.DeliveryMethodId, model.BasketId,
+                model.ShipToAddress, ct);
+            return this.mapper.Map<ResponseModel.Order>(orderFromDb);
         }
 
-        public Task<IReadOnlyList<Domain.Orders.DeliveryMethod>> GetDeliveryMethods() {
-            throw new NotImplementedException();
+        public Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethods(CancellationToken ct = default) {
+            return this.unitOfWork.Repository<DeliveryMethod, Guid>()
+                .GetAllEntitiesAsync(ct);
         }
 
-        public Task<Domain.Orders.Order> GetOrderByIdAsync(
+        public async Task<ResponseModel.Order> GetOrderByIdAsync(
                 Guid id,
-                string buyerEmail) {
-            throw new NotImplementedException();
+                string buyerEmail,
+                CancellationToken ct = default) {
+            var specification = new OrdersWithItemsAndOrderingSpecification(id, buyerEmail);
+            var orderFromDb = await this.unitOfWork.Repository<Order, Guid>()
+                .GetEntityWithSpecificationAsync(specification, ct);
+            return this.mapper.Map<ResponseModel.Order>(orderFromDb);
         }
 
-        public Task<IReadOnlyList<Domain.Orders.Order>> GetOrdersForUserAsync(string buyerEmail) {
-            throw new NotImplementedException();
+        public async Task<IReadOnlyList<ResponseModel.Order>> GetOrdersForUserAsync(
+                string buyerEmail,
+                CancellationToken ct = default) {
+            var specification = new OrdersWithItemsAndOrderingSpecification(buyerEmail);
+            var ordersFromDb = await this.unitOfWork.Repository<Order, Guid>()
+                .GetEntitiesWithSpecificationAsync(specification, ct);
+            return this.mapper.Map<IReadOnlyList<Domain.Orders.Order>, IReadOnlyList<ResponseModel.Order>>(ordersFromDb);
         }
     }
 }

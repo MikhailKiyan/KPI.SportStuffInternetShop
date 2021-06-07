@@ -24,5 +24,11 @@ namespace KPI.SportStuffInternetShop.Services.Contracts {
         Task<int> CountAsync(
             ISpecification<TEntity> spec,
             CancellationToken ct = default);
+
+        void Add(TEntity entity);
+
+        void Update(TEntity entity);
+
+        void Delete(TEntity entity);
     }
 }

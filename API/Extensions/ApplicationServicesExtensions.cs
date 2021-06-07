@@ -28,6 +28,8 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddScoped<DbContext, ApplicationDbContext>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.AddSingleton<IConnectionMultiplexer>(c => {
                 var config = ConfigurationOptions.Parse(configuration.GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(config);

@@ -3,27 +3,25 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using KPI.SportStuffInternetShop.Domains.Orders;
-using KPI.SportStuffInternetShop.Models.RequestModels;
+using Model = KPI.SportStuffInternetShop.Models;
+using RequestModel = KPI.SportStuffInternetShop.Models.RequestModels;
+using ResponseModel = KPI.SportStuffInternetShop.Models.ResponseModels;
 
 namespace KPI.SportStuffInternetShop.Contracts.Services {
     public interface IOrderService {
-        Task<Order> CreateOrderAsync(
+        Task<IReadOnlyList<ResponseModel.Order>> GetOrdersForUserAsync(
             string buyerEmail,
-            Guid deliveryMethodId,
-            Guid basketId,
-            OrderAddress shippingAddress);
+            CancellationToken ct = default);
 
-        Task<IReadOnlyList<Order>> GetOrdersForUserAsync(
-            string buyerEmail);
-
-        Task<Order> GetOrderByIdAsync(
+        Task<ResponseModel.Order> GetOrderByIdAsync(
             Guid id,
-            string buyerEmail);
+            string buyerEmail,
+            CancellationToken ct = default);
 
-        Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethods();
+        Task<IReadOnlyList<DeliveryMethod>> GetDeliveryMethods(CancellationToken ct = default);
 
-        Task<Domains.Orders.Order> CreateOrderAsync(
-            OrderRequestModel model,
+        Task<ResponseModel.Order> CreateOrderAsync(
+            RequestModel.OrderRequestModel model,
             string userEmail,
             CancellationToken ct = default);
     }
