@@ -67,6 +67,7 @@ namespace Microsoft.Extensions.DependencyInjection {
 
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             return services;
         }

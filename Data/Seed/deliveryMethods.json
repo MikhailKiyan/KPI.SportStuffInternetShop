@@ -1,44 +1,23 @@
-﻿[/*
+﻿[
   {
-    "Id": "",
-    "ShortName": "",
-    "DeliveryTime": "",
-    "Description": "",
-    "Price": 0
+    "Id": "3EA53E6B-F69F-4E7B-8238-43615037CA1B",
+    "ShortName": "УкрПошта",
+    "DeliveryTime": "3-5 діб",
+    "Description": "Середня вартість доставки",
+    "Price": 50.00
   },
   {
-    "Id": "",
-    "ShortName": "",
-    "DeliveryTime": "",
-    "Description": "",
-    "Price": 0
+    "Id": "4838A35A-B6D7-44CF-98EF-B5AC00712E1F",
+    "ShortName": "Нова Пошта",
+    "DeliveryTime": "1-2 доби",
+    "Description": "Швидка доставка",
+    "Price": 100.00
   },
   {
-    "Id": "",
-    "ShortName": "",
-    "DeliveryTime": "",
-    "Description": "",
-    "Price": 0
-  },
-  {
-    "Id": "",
-    "ShortName": "",
-    "DeliveryTime": "",
-    "Description": "",
-    "Price": 0
-  },
-  {
-    "Id": "",
-    "ShortName": "",
-    "DeliveryTime": "",
-    "Description": "",
-    "Price": 0
-  },
-  {
-    "Id": "",
-    "ShortName": "",
-    "DeliveryTime": "",
-    "Description": "",
-    "Price": 0
-  }*/
+    "Id": "65008E4D-97C1-4526-912B-C3BA42B02B66",
+    "ShortName": "Нічний експрес",
+    "DeliveryTime": "2-3 доби",
+    "Description": "Неперевірена служба",
+    "Price": 50.00
+  }
 ]

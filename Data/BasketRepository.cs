@@ -24,7 +24,7 @@ namespace KPI.SportStuffInternetShop.Data {
 
         public async Task<CustomerBasket> CreateOrUpdateBasketAsync(CustomerBasket customerBasket) {
             var json = JsonConvert.SerializeObject(customerBasket);
-            var ttl = TimeSpan.FromDays(10);
+            var ttl = TimeSpan.FromDays(30);
             var created = await this.database.StringSetAsync(customerBasket.Id.ToString(), json, ttl);
             if (!created) return null;
             return await this.GetBasketAsync(customerBasket.Id);

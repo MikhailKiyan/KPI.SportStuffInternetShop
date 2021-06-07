@@ -9,20 +9,20 @@ namespace KPI.SportStuffInternetShop.Services.Contracts {
             where TEntity : BaseEntity<TKey> {
         ValueTask<TEntity> FineByKeyAsync(
             TKey key,
-            CancellationToken ct);
+            CancellationToken ct = default);
 
         Task<IReadOnlyList<TEntity>> GetAllEntitiesAsync(CancellationToken ct);
 
         Task<IReadOnlyList<TEntity>> GetEntitiesWithSpecificationAsync(
             ISpecification<TEntity> spec,
-            CancellationToken ct);
+            CancellationToken ct = default);
 
         Task<TEntity> GetEntityWithSpecificationAsync(
             ISpecification<TEntity> spec,
-            CancellationToken ct);
+            CancellationToken ct = default);
 
         Task<int> CountAsync(
             ISpecification<TEntity> spec,
-            CancellationToken ct);
+            CancellationToken ct = default);
     }
 }
