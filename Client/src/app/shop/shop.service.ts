@@ -18,12 +18,12 @@ export class ShopService {
   getProducts(shopParams: ShopParams) {
     let params = new HttpParams();
 
-    if (shopParams.brandId !== 0) {
-      params = params.append('brandId', shopParams.brandId.toString())
+    if (shopParams.brandId !== '') {
+      params = params.append('brandId', shopParams.brandId)
     }
 
-    if (shopParams.typeId !== 0) {
-      params = params.append('typeId', shopParams.typeId.toString())
+    if (shopParams.typeId !== '') {
+      params = params.append('typeId', shopParams.typeId)
     }
 
     if (shopParams.search) {
@@ -42,7 +42,7 @@ export class ShopService {
       )
   }
 
-  getProduct(id: number) {
+  getProduct(id: string) {
     return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
 

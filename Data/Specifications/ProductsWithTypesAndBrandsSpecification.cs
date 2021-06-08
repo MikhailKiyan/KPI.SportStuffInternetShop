@@ -20,6 +20,7 @@ namespace KPI.SportStuffInternetShop.Data.Specifications {
                     this.AddOrderByDescending(x => x.Price);
                     break;
 
+                case "name":
                 case null:
                     this.AddOrderBy(x => x.Name);
                     break;

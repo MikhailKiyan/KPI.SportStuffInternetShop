@@ -30,7 +30,7 @@ export class ShopComponent implements OnInit {
     this.getBrands();
     this.getTypes();
   }
-  
+
   getProducts() {
     this.shopService.getProducts(this.shopParams).subscribe(response => {
       this.products = response.data;
@@ -44,7 +44,7 @@ export class ShopComponent implements OnInit {
 
   getBrands() {
     this.shopService.getBrands().subscribe(response => {
-      this.brands = [{id: 0, name: 'All'}, ...response];
+      this.brands = [{id: '', name: 'All'}, ...response];
     }, error => {
       console.log(error);
     })
@@ -52,19 +52,19 @@ export class ShopComponent implements OnInit {
 
   getTypes() {
     this.shopService.getTypes().subscribe(response => {
-      this.types = [{id: 0, name: 'All'}, ...response];
+      this.types = [{id: '', name: 'All'}, ...response];
     }, error => {
       console.log(error);
     })
   }
 
-  onBrandSelected(brandId: number) {
+  onBrandSelected(brandId: string) {
     this.shopParams.brandId = brandId;
     this.shopParams.pageNumber = 1;
     this.getProducts();
   }
 
-  onTypeSelected(typeId: number) {
+  onTypeSelected(typeId: string) {
     this.shopParams.typeId = typeId;
     this.shopParams.pageNumber = 1;
     this.getProducts();
