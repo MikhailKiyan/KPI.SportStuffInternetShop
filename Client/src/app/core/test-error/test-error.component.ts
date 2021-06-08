@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { IProduct } from 'src/app/shared/models/product';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,27 +13,40 @@ export class TestErrorComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+  }
 
   get404Error() {
-    this.http.get<IProduct>(this.baseUrl + 'product/83ACE365-48CF-47D5-A920-DC237E5454E4').subscribe(console.log, console.error);
+    this.http.get(this.baseUrl + 'products/42').subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    })
   }
 
   get500Error() {
-    this.http.get(this.baseUrl + 'weatherforecast/servererror').subscribe(console.log, console.error);
+    this.http.get(this.baseUrl + 'buggy/servererror').subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    })
   }
 
   get400Error() {
-    this.http.get<IProduct>(this.baseUrl + 'weatherforecast/badrequest').subscribe(console.log, console.error);
+    this.http.get(this.baseUrl + 'buggy/badrequest').subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+    })
   }
 
   get400ValidationError() {
-    this.http.get<IProduct>(this.baseUrl + 'product/notGuidId').subscribe(
-      console.log,
-      error => {
-        console.error;
-        this.validationErrors = error.errors;
-      }
-    );
+    this.http.get(this.baseUrl + 'products/fortytwo').subscribe(response => {
+      console.log(response);
+    }, error => {
+      console.log(error);
+      this.validationErrors = error.errors;
+    })
   }
+
 }

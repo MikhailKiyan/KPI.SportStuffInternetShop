@@ -7,24 +7,27 @@ import { ControlValueAccessor, NgControl } from '@angular/forms';
   styleUrls: ['./text-input.component.scss']
 })
 export class TextInputComponent implements OnInit, ControlValueAccessor {
-  @ViewChild('input', { static: true }) input!: ElementRef;
-  @Input() type="text";
-  @Input() placeholder = '';
-  @Input() label = '';
-  @Input() id = '';
+  @ViewChild('input', {static: true}) input: ElementRef;
+  @Input() type = 'text';
+  @Input() label = 'string';
 
-  constructor(@Self() public controlDir: NgControl) {
+  constructor(@Self() public controlDir: NgControl) { 
     this.controlDir.valueAccessor = this;
-   }
+  }
 
   ngOnInit(): void {
     const control = this.controlDir.control;
-    const validators = control?.validator ? [control?.validator] : [];
-    const asyncValidators = control?.asyncValidator ? [control?.asyncValidator] : [];
-    control?.setValidators(validators);
-    control?.setAsyncValidators(asyncValidators);
-    control?.updateValueAndValidity();
-   }
+    const validators = control.validator ? [control.validator] : [];
+    const asyncValidators = control.asyncValidator ? [control.asyncValidator] : [];
+
+    control.setValidators(validators);
+    control.setAsyncValidators(asyncValidators);
+    control.updateValueAndValidity();
+  }
+
+  onChange(event) {}
+
+  onTouched() {}
 
   writeValue(obj: any): void {
     this.input.nativeElement.value = obj || '';
@@ -38,7 +41,4 @@ export class TextInputComponent implements OnInit, ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  onChange(event: any) {}
-
-  onTouched() {}
 }
