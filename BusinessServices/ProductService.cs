@@ -40,11 +40,11 @@ namespace KPI.SportStuffInternetShop.BusinessServices {
                 CancellationToken ct = default) {
             var productSpec = new ProductsWithTypesAndBrandsSpecification(productParams);
             var countSpec = new ProductWithFilterForCountSpecification(productParams);
-            var productsTask = this.productRepository.GetEntitiesWithSpecificationAsync(productSpec, ct);
-            var totalItemsTask = this.productRepository.CountAsync(countSpec, ct);
-            var data = this.mapper.Map<IReadOnlyList<ResponseModel.Product>>(await productsTask);
+            var products = await this.productRepository.GetEntitiesWithSpecificationAsync(productSpec, ct);
+            var totalItems = await this.productRepository.CountAsync(countSpec, ct);
+            var data = this.mapper.Map<IReadOnlyList<ResponseModel.Product>>(products);
             return new ResponseModel.Pagination<ResponseModel.Product>(productParams.PageIndex, productParams.PageSize,
-                await totalItemsTask, data);
+                totalItems, data);
         }
 
         public async Task<IReadOnlyList<ResponseModel.ProductBrand>> GetProductBrandsAsync(CancellationToken ct = default) {
