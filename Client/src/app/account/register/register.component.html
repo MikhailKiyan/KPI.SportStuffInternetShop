@@ -1,21 +1,58 @@
 <div class="d-flex justify-content-center mt-5">
-    <div class="col-3">
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <div class="text-center mb-4">
-                <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-            </div>
+  <div class="col-3">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Реєстрація нового користувача</h1>
+      </div>
 
-            <app-text-input formControlName="displayName" [label]="'Display Name'"></app-text-input>
-            <app-text-input formControlName="email" [label]="'Email address'"></app-text-input>
-            <app-text-input formControlName="password" [label]="'Password'" [type]="'password'"></app-text-input>
+      <div class="form-floating mt-3">
+        <label for="floatingInput">Email адреса</label>
+        <input type="email"
+               formControlName="email"
+               class="form-control"
+               id="floatingInput"
+               placeholder="name@example.com"
+               autocomplete="off"
+               style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+        <span class="text-danger"
+              *ngIf="isError('email', 'required')"
+        >Email адреса обов'язкова</span>
+        <span class="text-danger"
+              *ngIf="isError('email', 'pattern')"
+        >Email адреса невірна</span>
+      </div>
 
-            <ul class="text-danger list-unstyled" *ngIf="errors">
-                <li *ngFor="let error of errors">
-                    {{error}}
-                </li>
-            </ul>
+      <div class="form-floating mt-3">
+        <label for="floatingDisplayName">Ім'я</label>
+        <input type="text"
+               formControlName="displayName"
+               class="form-control"
+               id="floatingDisplayName"
+               placeholder="Ім'я"
+               autocomplete="off"
+               style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+        <span class="text-danger"
+              *ngIf="isError('displayName', 'required')"
+        >Ім'я обов'язкове</span>
+      </div>
 
-            <button  class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
-    </div>
+      <div class="form-floating my-3">
+        <label for="floatingPassword">Пароль</label>
+        <input type="password"
+               formControlName="password"
+               class="form-control"
+               id="floatingPassword"
+               placeholder="Пароль"
+               autocomplete="off"
+               style="background-image: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAASCAYAAABSO15qAAAAAXNSR0IArs4c6QAAAPhJREFUOBHlU70KgzAQPlMhEvoQTg6OPoOjT+JWOnRqkUKHgqWP4OQbOPokTk6OTkVULNSLVc62oJmbIdzd95NcuGjX2/3YVI/Ts+t0WLE2ut5xsQ0O+90F6UxFjAI8qNcEGONia08e6MNONYwCS7EQAizLmtGUDEzTBNd1fxsYhjEBnHPQNG3KKTYV34F8ec/zwHEciOMYyrIE3/ehKAqIoggo9inGXKmFXwbyBkmSQJqmUNe15IRhCG3byphitm1/eUzDM4qR0TTNjEixGdAnSi3keS5vSk2UDKqqgizLqB4YzvassiKhGtZ/jDMtLOnHz7TE+yf8BaDZXA509yeBAAAAAElFTkSuQmCC&quot;); background-repeat: no-repeat; background-attachment: scroll; background-size: 16px 18px; background-position: 98% 50%;">
+        <span class="text-danger"
+              *ngIf="isError('password', 'required')"
+        >Пароль обов'язковий</span>
+      </div>
+
+      <button class="w-100 btn btn-lg btn-primary mt-5"
+              type="submit"
+              [disabled]="registerForm!.invalid">Реєстрація</button>
+    </form>
+  </div>
 </div>
