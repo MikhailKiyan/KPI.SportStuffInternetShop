@@ -1,5 +1,5 @@
 <div class="mt-4" [formGroup]="checkoutForm">
-    <h4 class="mb-3">Choose your delivery method</h4>
+    <h4 class="mb-3">Виберіт спосіб доставки</h4>
     <div class="row" formGroupName="deliveryForm">
         <div class="col-6 form-group" *ngFor="let method of deliveryMethods">
             <input type="radio"
@@ -10,7 +10,7 @@
                 class="custom-control-input"
             >
             <label for="{{method.id}}" class="custom-control-label">
-                <strong>{{method.shortName}} - {{method.price | currency}}</strong>
+                <strong>{{method.shortName}} - {{method.price | currency:"UAH":"symbol-narrow"}}</strong>
                 <br />
                 <span class="label-description">{{method.description}}</span>
             </label>
@@ -20,9 +20,9 @@
 
 <div class="float-none d-flex justify-content-between flex-column flex-lg-row mb-5">
     <button class="btn btn-outline-primary" cdkStepperPrevious>
-        <i class="fa fa-angle-left"></i> Back to address
+        <i class="fa fa-angle-left"></i> Повернутися до адреси
     </button>
     <button class="btn btn-primary" cdkStepperNext>
-        Go to review <i class="fa fa-angle-right"></i>
+       Перейти по перевірки даних <i class="fa fa-angle-right"></i>
     </button>
 </div>

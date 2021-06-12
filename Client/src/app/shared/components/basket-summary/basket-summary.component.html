@@ -4,19 +4,19 @@
             <thead>
                 <tr>
                     <th class="border-0" scope="col" [class.bg-light]="isBasket" >
-                        <div class="p-2 px-3 text-uppercase">Product</div>
+                        <div class="p-2 px-3 text-uppercase">Продукт</div>
                     </th>
                     <th scope="col" class="border-0" [class.bg-light]="isBasket">
-                        <div class="py-2 text-uppercase">Price</div>
+                        <div class="py-2 text-uppercase">Ціна</div>
                     </th>
                     <th scope="col" class="border-0" [class.bg-light]="isBasket">
-                        <div class="py-2 text-uppercase">Quantity</div>
+                        <div class="py-2 text-uppercase">Кількість</div>
                     </th>
                     <th scope="col" class="border-0" [class.bg-light]="isBasket">
-                        <div class="py-2 text-uppercase">Total</div>
+                        <div class="py-2 text-uppercase">Всього</div>
                     </th>
                     <th *ngIf="isBasket" scope="col" class="border-0 bg-light">
-                        <div class="py-2 text-uppercase">Remove</div>
+                        <div class="py-2 text-uppercase">Видалити</div>
                     </th>
                 </tr>
             </thead>
@@ -31,14 +31,15 @@
                                     <a routerLink="/shop/{{item.id}}"
                                         class="text-dark">{{item.productName}}</a>
                                 </h5>
-                                <span
-                                    class="text-muted font-weight-normal font-italic d-block">Type:
-                                    {{item.type}}</span>
+                                <span class="text-muted font-weight-normal font-italic d-block"
+                                >Бренд: {{item.brand}}</span>
+                                <span class="text-muted font-weight-normal font-italic d-block"
+                                >Категорія: {{item.type}}</span>
                             </div>
-    
+
                         </div>
                     </th>
-                    <td class="align-middle"><strong>{{item.price | currency}}</strong></td>
+                    <td class="align-middle"><strong>{{item.price | currency:"UAH":"symbol-narrow"}}</strong></td>
                     <td class="align-middle">
                         <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
                             <i *ngIf="isBasket" (click)="decrementItemQuantity(item)" class="fa fa-minus-circle text-warning mr-2"
@@ -51,7 +52,7 @@
                         </div>
                     </td>
                     <td class="align-middle">
-                        <strong>{{item.price * item.quantity | currency}}</strong></td>
+                        <strong>{{item.price * item.quantity | currency:"UAH":"symbol-narrow"}}</strong></td>
                     <td class="align-middle text-center">
                         <a class="text-danger">
                             <i *ngIf="isBasket" (click)="removeBasketItem(item)" class="fa fa-trash" style="font-size: 2em; cursor: pointer;"></i>
@@ -61,5 +62,5 @@
             </tbody>
         </table>
     </div>
-    
+
 </ng-container>

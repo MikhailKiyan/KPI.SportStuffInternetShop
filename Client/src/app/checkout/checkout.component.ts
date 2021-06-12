@@ -24,7 +24,7 @@ export class CheckoutComponent implements OnInit {
         lastName: [null, Validators.required],
         street: [null, Validators.required],
         city: [null, Validators.required],
-        state: [null, Validators.required],
+        oblast: [null, Validators.required],
         zipCode: [null, Validators.required],
       }),
       deliveryForm: this.fb.group({
