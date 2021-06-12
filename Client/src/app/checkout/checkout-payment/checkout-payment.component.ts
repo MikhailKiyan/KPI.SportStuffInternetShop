@@ -26,6 +26,7 @@ export class CheckoutPaymentComponent implements OnInit {
   submitOrder() {
     const basket = this.basketService.getCurrentBasketValue();
     const orderToCreate = this.getOrderToCreate(basket);
+    console.log("OrderToCreate:", orderToCreate);
     this.checkoutService.createOrder(orderToCreate)
       .subscribe((order: IOrder) => {
         this.toastr.success('Order created successfully');
@@ -41,7 +42,7 @@ export class CheckoutPaymentComponent implements OnInit {
   private getOrderToCreate(basket: IBasket) {
     return {
       basketId: basket.id,
-      deliveryMethodId: +this.checkoutForm.get('deliveryForm').get('deliveryMethod').value,
+      deliveryMethodId: this.checkoutForm.get('deliveryForm').get('deliveryMethod').value,
       shipToAddress: this.checkoutForm.get('addressForm').value
     };
   }

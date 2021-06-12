@@ -2,12 +2,12 @@ import { IAddress } from "./address";
 
 export interface IOrderToCreate {
   basketId: string;
-  deliveryMethodId: number;
+  deliveryMethodId: string;
   shipToAddress: IAddress;
 }
 
 export interface IOrder {
-  id: number;
+  id: string;
   buyerEmail: string;
   orderDate: string;
   shipToAddress: IAddress;
@@ -19,7 +19,7 @@ export interface IOrder {
 }
 
 export interface IOrderItem {
-  productId: number;
+  productId: string;
   productName: string;
   pictureUrl: string;
   price: number;
