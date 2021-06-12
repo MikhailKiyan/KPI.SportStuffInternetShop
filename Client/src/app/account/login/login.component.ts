@@ -35,4 +35,12 @@ export class LoginComponent implements OnInit {
     })
   }
 
+  isError(fieldName: string, errorType: string): boolean {
+    const formField = this.loginForm.get(fieldName);
+    if (!formField) return false;
+    const formFieldErrors = formField.errors;
+    if (!formFieldErrors) return false;
+    const formFieldError = formFieldErrors[errorType];
+    return formFieldError;
+  }
 }
