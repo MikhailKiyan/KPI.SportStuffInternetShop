@@ -12,11 +12,9 @@ export class PagerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onPagerChange(page: number) {
     this.pageChanged.emit(page);
   }
-
 }

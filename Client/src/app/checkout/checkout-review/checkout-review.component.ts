@@ -9,7 +9,5 @@ export class CheckoutReviewComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void { }
 }

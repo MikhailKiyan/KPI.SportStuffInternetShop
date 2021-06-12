@@ -14,7 +14,10 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   errors: string[];
 
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) { }
+  constructor(
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.createRegisterForm();
@@ -22,9 +25,12 @@ export class RegisterComponent implements OnInit {
 
   createRegisterForm() {
     this.registerForm = this.fb.group({
-      displayName: [ null, [ Validators.required ], 'Обовяз ' ],
+      displayName: [ null, [ Validators.required ]],
       email: [ null,
-        [ Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$') ],
+        [
+          Validators.required,
+          Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
+        ],
         [ this.validateEmailNotTaken() ]
       ],
       password: [ null, Validators.required]
@@ -32,12 +38,13 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.accountService.register(this.registerForm.value).subscribe(response => {
-      this.router.navigateByUrl('/shop');
-    }, error => {
-      console.log(error);
-      this.errors = error.errors;
-    })
+    this.accountService.register(this.registerForm.value)
+      .subscribe(response => {
+        this.router.navigateByUrl('/shop');
+      }, error => {
+        console.log(error);
+        this.errors = error.errors;
+      })
   }
 
   validateEmailNotTaken(): AsyncValidatorFn {

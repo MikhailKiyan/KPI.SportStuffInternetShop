@@ -32,5 +32,4 @@ export class BasketSummaryComponent implements OnInit {
   removeBasketItem(item: IBasketItem) {
     this.remove.emit(item);
   }
-
 }

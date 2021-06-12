@@ -15,7 +15,9 @@ export class AccountService {
   private currentUserSource = new ReplaySubject<IUser>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router) { }
 
   loadCurrentUser(token: string) {
     if (token == null) {
@@ -25,7 +27,6 @@ export class AccountService {
 
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
-
     return this.http.get(this.baseUrl + 'account', {headers}).pipe(
       map((user: IUser) => {
         if (user) {
