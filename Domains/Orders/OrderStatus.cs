@@ -9,5 +9,6 @@ namespace KPI.SportStuffInternetShop.Domains.Orders {
         PaymentReceived,
 
         [EnumMember(Value = "Payment Failed")]
-        PaymentFailed }
+        PaymentFailed
+    }
 }
