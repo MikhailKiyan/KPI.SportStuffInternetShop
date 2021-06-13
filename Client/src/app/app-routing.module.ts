@@ -34,6 +34,12 @@ const routes: Routes = [
     data: { breadcrumb: { skip: true } }
   },
   { path: 'contacts', component: ContactsComponent, data: { breadcrumb: 'Контакти' } },
+  {
+    path: 'orders',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./orders/orders.module').then(mod => mod.OrdersModule),
+    data: { breadcrumb: 'Замовлення' }
+  },
   { path: '**', redirectTo: 'not-found', pathMatch: 'full' }
 ];
 
