@@ -19,8 +19,8 @@ export class ShopComponent implements OnInit {
   totalCount: number;
   sortOptions = [
     { name: 'По назві', value: 'name' },
-    { name: 'Ціна: від дорогих до дешевих', value: 'priceAsc' },
-    { name: 'Ціна: від дешевих до дорогих', value: 'priceDesc' },
+    { name: 'Ціна: від дорогих до дешевих', value: 'priceDesc' },
+    { name: 'Ціна: від дешевих до дорогих', value: 'priceAsc' },
   ]
 
   constructor(private shopService: ShopService) { }

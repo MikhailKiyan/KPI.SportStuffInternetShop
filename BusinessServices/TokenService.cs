@@ -11,7 +11,7 @@ using KPI.SportStuffInternetShop.Domains.Identity;
 namespace KPI.SportStuffInternetShop.BusinessServices {
     public class TokenService : ITokenService {
         private readonly IConfiguration config;
-        private readonly SymmetricSecurityKey key;
+        private readonly SecurityKey key;
 
         public TokenService(IConfiguration config) {
             this.config = config;

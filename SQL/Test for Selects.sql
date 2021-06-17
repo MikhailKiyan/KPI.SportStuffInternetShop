@@ -10,7 +10,5 @@ SELECT * FROM dbo.ProductType
 SELECT * FROM [Identity].[User] U 
 LEFT JOIN [Identity].[Address] UA ON UA.UserId = U.Id
 
-DELETE FROM dbo.Product
-
 SELECT * FROM dbo.DeliveryMethods
 SELECT * FROM dbo.Orders
