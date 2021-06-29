@@ -4,6 +4,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>KPI.SportStuffInternetShop.API</AssemblyName>
     <RootNamespace>KPI.SportStuffInternetShop.API</RootNamespace>
+    <UserSecretsId>52e06e07-b1e3-4531-9a71-3c3921508028</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

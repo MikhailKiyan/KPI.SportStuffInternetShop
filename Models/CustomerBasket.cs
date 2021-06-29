@@ -7,6 +7,12 @@ namespace KPI.SportStuffInternetShop.Models {
         [Required]
         public Guid Id { get; set; }
 
+        public Guid? DeliveryMethodId { get; set; }
+
+        public string ClientSecret { get; set; }
+
+        public string PaymentIntentId { get; set; }
+
         public List<CustomerBasketItem> Items { get; set; }
     }
 }

@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using KPI.SportStuffInternetShop.BusinessServices.Payment;
 
 namespace Microsoft.Extensions.DependencyInjection {
     public static class ApplicationServicesExtensions {
@@ -70,6 +71,7 @@ namespace Microsoft.Extensions.DependencyInjection {
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             return services;
         }
